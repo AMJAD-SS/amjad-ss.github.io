@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع متكاملون - وظائف ومساعدات</title>
+    <!-- استدعاء خط ومكتبة أيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1565ff;
+            --primary-dark: #0d1117;
+            --light-bg: #f4f6fa;
+            --white: #ffffff;
+            --text-color: #1a1a1a;
+            --muted-text: #6b7280;
+            --border-color: #e5e9f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 1. الشريط العلوي */
+        .top-bar {
+            background-color: var(--primary-dark);
+            color: #cfd8e3;
+            font-size: 13px;
+            padding: 8px 0;
+            border-bottom: 1px solid #21262d;
+        }
+
+        .top-bar-inner {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .top-links a {
+            margin-inline-end: 15px;
+            transition: color 0.2s;
+        }
+
+        .top-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .top-social a {
+            margin-inline-start: 12px;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .top-social a.fb:hover { color: #1877f2; }
+        .top-social a.tg:hover { color: #0088cc; }
+
+        /* 2. الهيدر والشعار */
+        .site-header {
+            background-color: var(--white);
+            padding: 25px 0;
+            text-align: center;
+            border-bottom: 3px solid var(--primary-blue);
+        }
+
+        .logo-box h1 {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--primary-dark);
+        }
+
+        .logo-box h1 span {
+            color: var(--primary-blue);
+        }
+
+        .logo-tagline {
+            font-size: 14px;
+            color: var(--muted-text);
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* 3. شريط التنقل (القائمة الرئيسية) */
+        .main-nav {
+            background-color: var(--primary-dark);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+        }
+
+        .nav-inner a {
+            color: #e5e7eb;
+            padding: 14px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .nav-inner a:hover, .nav-inner a.active {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        /* 4. بنية محتوى الموقع */
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 15px;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 30px;
+        }
+
+        /* الأقسام الرئيسية */
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-dark);
+            padding-bottom: 8px;
+        }
+
+        .section-title {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 6px 18px;
+            font-size: 15px;
+            font-weight: bold;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        /* شبكة البطاقات */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .post-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(21, 101, 255, 0.15);
+        }
+
+        .post-thumb {
+            height: 150px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 40px;
+        }
+
+        .post-content {
+            padding: 15px;
+        }
+
+        .post-badge {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            font-size: 11px;
+            padding: 2px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .post-card h3 {
+            font-size: 16px;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            height: 48px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .post-meta {
+            font-size: 12px;
+            color: var(--muted-text);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* 5. الشريط الجانبي (السايدبار) */
+        .sidebar-widget {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .widget-title {
+            font-size: 16px;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* صندوق البحث */
+        .search-form {
+            display: flex;
+        }
+
+        .search-form input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 0 6px 6px 0;
+            outline: none;
+        }
+
+        .search-form input:focus {
+            border-color: var(--primary-blue);
+        }
+
+        .search-form button {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0 15px;
+            border-radius: 6px 0 0 6px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .search-form button:hover {
+            opacity: 0.85;
+        }
+
+        /* أداة الاشتراك الدائمة */
+        .join-widget {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .join-widget p {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .join-btn {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--primary-blue);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .join-btn:hover {
+            background-color: #e8f0ff;
+        }
+
+        /* روابط الأقسام */
+        .cat-list {
+            list-style: none;
+        }
+
+        .cat-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .cat-list li:last-child {
+            border-bottom: none;
+        }
+
+        .cat-list a {
+            transition: color 0.2s;
+        }
+
+        .cat-list a:hover {
+            color: var(--primary-blue);
+        }
+
+        .cat-list .count {
+            background-color: var(--light-bg);
+            color: var(--muted-text);
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        /* 6. الفوتر */
+        footer {
+            background-color: var(--primary-dark);
+            color: #9aa4b2;
+            padding: 40px 0 0;
+            margin-top: 6px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 15px 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        footer h4 {
+            color: var(--white);
+            margin-bottom: 15px;
+            font-size: 16px;
+            border-right: 3px solid var(--primary-blue);
+            padding-right: 10px;
+        }
+
+        footer p, footer a {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer a:hover {
+            color: var(--primary-blue);
+        }
+
+        .footer-social a {
+            display: inline-block;
+            margin-inline-end: 10px;
+            font-size: 18px;
+            transition: color 0.2s;
+        }
+
+        .footer-social a.fb:hover { color: #1877f2; }
+        .footer-social a.tg:hover { color: #0088cc; }
+
+        .copyright-bar {
+            background-color: #080b0f;
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+            color: #5b6470;
+            border-top: 1px solid #161b22;
+        }
+
+        /* التجاوب مع شاشات الموبايل */
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-box h1 {
+                font-size: 28px;
+            }
+
+            .top-bar-inner {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. الشريط العلوي -->
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <div class="top-links">
+                <a href="#">الرئيسية</a>
+                <a href="#">من نحن</a>
+                <a href="#">سياسة الخصوصية</a>
+                <a href="#">اتصل بنا</a>
+            </div>
+            <div class="top-social">
+                <a href="https://facebook.com/YOUR_PAGE" class="fb" target="_blank" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://t.me/YOUR_CHANNEL" class="tg" target="_blank" aria-label="تليجرام"><i class="fab fa-telegram"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. الهيدر والشعار -->
+    <header class="site-header">
+        <div class="logo-box">
+            <h1>متكامـ<span>لون</span></h1>
+            <div class="logo-tagline">وظائف • مساعدات • فرص للجميع في قطاع غزة</div>
+        </div>
+    </header>
+
+    <!-- 3. القائمة الرئيسية -->
+    <nav class="main-nav">
+        <div class="nav-inner">
+            <a href="#" class="active">الرئيسية</a>
+            <a href="#">المساعدات</a>
+            <a href="#">الوظائف</a>
+            <a href="#">الخريجين</a>
+            <a href="#">الاقتصاد</a>
+            <a href="#">التعليم</a>
+            <a href="#">الصحة</a>
+            <a href="#">الطقس</a>
+        </div>
+    </nav>
+
+    <!-- 4. المحتوى الرئيسي + السايدبار -->
+    <div class="main-container">
+
+        <!-- المحتوى الرئيسي -->
+        <main>
+
+            <!-- قسم المساعدات -->
+            <div class="section-header">
+                <h2 class="section-title">المساعدات</h2>
+            </div>
+
+            <div class="posts-grid">
+                <article class="post-card">
+                    <div class="post-thumb"><i class="fas fa-hand-holding-usd"></i></div>
+                    <div class="post-content">
+                        <span class="post-badge">مساعدات نقدية</span>
+                        <h3>رابط التسجيل للمساعدات العينية والمالية للأسر المتضررة</h3>
+                        <div class="post-meta">
+                            <span>📅 نوفمبر 2026</span>
+                            <span>⏱ قراءة 3 دقائق</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-thumb"><i class="fas fa-box-open"></i></div>
+                    <div class="post-content">
+                        <span class="post-badge">مساعدات عينية</span>
+                        <h3>توزيع الطرود الغذائية والصحية في مناطق وسط وجنوب القطاع</h3>
+                        <div class="post-meta">
+                            <span>📅 نوفمبر 2026</span>
+                            <span>⏱ قراءة 3 دقائق</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- قسم الوظائف والمنح -->
+            <div class="section-header">
+                <h2 class="section-title">الوظائف والمنح</h2>
+            </div>
+
+            <div class="posts-grid">
+                <article class="post-card">
+                    <div class="post-thumb"><i class="fas fa-briefcase"></i></div>
+                    <div class="post-content">
+                        <span class="post-badge">وظائف تشغيل مؤقت</span>
+                        <h3>فرص تشغيل مؤقت للخريجين والعمال بتمويل من مؤسسات دولية</h3>
+                        <div class="post-meta">
+                            <span>📅 نوفمبر 2026</span>
+                            <span>⏱ قراءة 4 دقائق</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-thumb"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="post-content">
+                        <span class="post-badge">منح دراسية</span>
+                        <h3>فتح باب التسجيل للمنح الدراسية الخارجية للطلاب المتفوقين</h3>
+                        <div class="post-meta">
+                            <span>📅 نوفمبر 2026</span>
+                            <span>⏱ قراءة 4 دقائق</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </main>
+
+        <!-- الشريط الجانبي -->
+        <aside>
+
+            <!-- صندوق البحث -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title"><i class="fas fa-search"></i> ابحث عما تريد</h3>
+                <form class="search-form" action="#" method="get">
+                    <input type="text" name="s" placeholder="اكتب كلمة البحث..." required>
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+
+            <!-- أداة الاشتراك -->
+            <div class="sidebar-widget join-widget">
+                <h3 class="widget-title" style="color:#fff; border-bottom-color:#fff;"><i class="fab fa-telegram"></i> اشترك الآن</h3>
+                <p>احصل على أحدث الفرص والوظائف فور نشرها مباشرة على تليجرام</p>
+                <a href="https://t.me/YOUR_CHANNEL" class="join-btn" target="_blank">انضم لقناة التليجرام</a>
+            </div>
+
+            <!-- أقسام الموقع -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title"><i class="fas fa-folder-open"></i> أقسام الموقع</h3>
+                <ul class="cat-list">
+                    <li><a href="#">وظائف شاغرة</a> <span class="count">12</span></li>
+                    <li><a href="#">مساعدات مالية</a> <span class="count">8</span></li>
+                    <li><a href="#">دورات وتدريبات</a> <span class="count">5</span></li>
+                </ul>
+            </div>
+
+        </aside>
+    </div>
+
+    <!-- 5. الفوتر -->
+    <footer>
+        <div class="footer-inner">
+
+            <div>
+                <h4>عن متكاملون</h4>
+                <p>منصة مستقلة تهدف إلى تسهيل الوصول للوظائف، المنح، والمساعدات الإنسانية لخدمة جميع الفئات في المجتمع.</p>
+            </div>
+
+            <div>
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="#">من نحن</a></li>
+                    <li><a href="#">سياسة الخصوصية</a></li>
+                    <li><a href="#">شروط الاستخدام</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>تواصل معنا</h4>
+                <p>لمتابعة المستجدات والاتصال المباشر بإدارة الموقع عبر الحسابات الرسمية.</p>
+                <div class="footer-social">
+                    <a href="https://facebook.com/YOUR_PAGE" class="fb" target="_blank" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://t.me/YOUR_CHANNEL" class="tg" target="_blank" aria-label="تليجرام"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="copyright-bar">
+            جميع الحقوق محفوظة © 2026 — موقع متكاملون
+        </div>
+    </footer>
+
+</body>
+</html>
