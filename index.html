@@ -113,26 +113,50 @@
                 <div class="section-title">أحدث الوظائف والمساعدات</div>
             </div>
 
-            <!-- ==================================================== -->
-            <!-- قسم المنشورات: من هنا ستضيف منشوراتك الجديدة بالمستقبل -->
+                        <!-- ==================================================== -->
+            <!-- قسم المنشورات الذكي: يجلب البيانات تلقائياً من ملف JSON -->
             <!-- ==================================================== -->
             <div id="posts-container">
-                
-                <!-- المنشور الأول كمثال جاهز -->
-                <article class="post-card-horizontal">
-                    <div class="post-card-thumb">
-                        <a href="job-un.html"><img src="logo.png" alt="صورة المنشور"></a>
-                    </div>
-                    <div class="post-card-content">
-                        <span class="post-card-badge">الوظائف</span>
-                        <h3><a href="job-un.html">فرص تشغيل مؤقت ووظائف شاغرة لدى وكالة الغوث (الأونروا)</a></h3>
-                        <div class="post-card-meta">📅 10 نوفمبر 2026</div>
-                        <p class="post-card-excerpt">تعلن وكالة الغوث وتشغيل اللاجئين الفلسطينيين عن فتح باب التسجيل الإلكتروني لفرص العمل المؤقتة للخريجين والعمال ضمن قطاعاتها المختلفة في غزة...</p>
-                        <a href="job-un.html" class="read-more-btn">اقرأ المزيد</a>
-                    </div>
-                </article>
-
+                <!-- الجافا سكريبت ستقوم ببناء وحقن البطاقات الأفقية هنا تلقائياً -->
             </div>
+
+            <script>
+                // جلب البيانات من نفس ملف jobs.json الرئيسي لتوحيد النشر
+                fetch('jobs.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const postsContainer = document.getElementById('posts-container');
+                        postsContainer.innerHTML = ''; // تنظيف الكرت الثابت القديم
+
+                        if (data.length === 0) {
+                            postsContainer.innerHTML = '<div class="text-center text-muted my-4">لا توجد إعلانات منشورة حالياً.</div>';
+                            return;
+                        }
+
+                        // ترتيب وعرض آخر 5 منشورات مضافة في ملف الـ JSON لتبدو الصفحة الرئيسية متناسقة
+                        const latestPosts = data.slice(0, 5);
+
+                        latestPosts.forEach(job => {
+                            const postHtml = `
+                                <article class="post-card-horizontal">
+                                    <div class="post-card-thumb">
+                                        <a href="job-un.html"><img src="${job.image || 'logo.png'}" alt="${job.title}"></a>
+                                    </div>
+                                    <div class="post-card-content">
+                                        <span class="post-card-badge">${job.company}</span>
+                                        <h3><a href="job-un.html">${job.title}</a></h3>
+                                        <div class="post-card-meta">📅 ${job.date}</div>
+                                        <p class="post-card-excerpt">${job.details}</p>
+                                        <a href="job-un.html" class="read-more-btn">اقرأ المزيد</a>
+                                    </article>
+                            `;
+                            postsContainer.innerHTML += postHtml;
+                        });
+                    })
+                    .catch(error => console.error('خطأ في مزامنة بيانات الصفحة الرئيسية:', error));
+            </script>
+            <!-- ==================================================== -->
+
             <!-- ==================================================== -->
 
         </main>
