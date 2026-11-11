@@ -3,69 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تفاصيل الإعلان - منصة متكاملون</title>
+    <title>الوظائف والمساعدات - منصة متكاملون</title>
+    <!-- استدعاء مكتبة لتنسيق كروت متجاوبة -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- مكتبة الأيقونات لتظهر علامات التقويم والمؤسسة بشكل جميل -->
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         :root { --primary-blue: #1565ff; --primary-dark: #0d1117; --light-bg: #f4f6fa; --white: #ffffff; --text-color: #1a1a1a; --muted-text: #6b7280; --border-color: #e5e9f0; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { background-color: var(--light-bg); color: var(--text-color); line-height: 1.8; }
-        .main-wrapper { max-width: 850px; margin: 40px auto; padding: 0 15px; }
-        .post-container { background: var(--white); border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.04); padding: 30px; }
-        h1.post-main-title { color: var(--primary-dark); font-size: 26px; font-weight: 800; margin-bottom: 15px; line-height: 1.5; }
-        .post-meta-bar { font-size: 13px; color: var(--muted-text); display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); }
-        .post-meta-bar i { color: var(--primary-blue); margin-left: 5px; }
-        .post-featured-image { width: 100%; max-height: 450px; margin-bottom: 25px; border-radius: 6px; overflow: hidden; display: flex; justify-content: center; background-color: #f9fafb; border: 1px solid var(--border-color); }
-        .post-featured-image img { width: 100%; height: 100%; object-fit: contain; }
-        .post-body-text { font-size: 16px; color: #2d3748; margin-bottom: 35px; text-align: justify; }
-        .post-body-text p { margin-bottom: 15px; }
-        .post-body-text strong { color: var(--primary-dark); }
-        .post-body-text ul { padding-right: 25px; margin-bottom: 15px; }
-        .post-body-text li { margin-bottom: 8px; }
-        .action-button-container { margin: 30px 0; }
-        .apply-now-btn { display: block; text-align: center; background: var(--primary-blue); color: var(--white); padding: 16px; border-radius: 6px; font-size: 19px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 14px rgba(21, 101, 255, 0.35); transition: background 0.2s; }
-        .apply-now-btn:hover { background: #0a3fa8; }
-        .footer-nav { margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px; }
-        .back-home-link { display: inline-block; color: var(--primary-dark); text-decoration: none; font-weight: bold; font-size: 14px; }
+        .main-wrapper { max-width: 1100px; margin: 40px auto; padding: 0 15px; }
+        
+        /* تصميم الكرت الشبكي المشابه للمتقدمون بألوان متكاملون */
+        .custom-job-card { background: var(--white); border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+        .custom-job-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        .card-img-container { width: 100%; height: 210px; background-color: #f9fafb; border-bottom: 1px solid var(--border-color); overflow: hidden; }
+        .card-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .apply-now-btn { display: block; text-align: center; background: var(--primary-blue); color: var(--white); padding: 12px; border-radius: 6px; font-size: 16px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 14px rgba(21, 101, 255, 0.2); transition: background 0.2s; }
+        .apply-now-btn:hover { background: #0a3fa8; color: var(--white); }
+        .back-home-link { display: inline-block; color: var(--primary-dark); text-decoration: none; font-weight: bold; font-size: 14px; margin-top: 30px; }
     </style>
 </head>
 <body>
     <div class="main-wrapper">
-        <article class="post-container">
-            <!-- 1. عدّل العنوان هنا -->
-            <h1 class="post-main-title">اكتب هنا عنوان الإعلان الجديد بكل وضوح</h1>
-            
-            <div class="post-meta-bar">
-                <span><i class="far fa-calendar-alt"></i> نوفمبر 2026</span>
-                <span><i class="far fa-folder"></i> القسم (مثال: الوظائف والمنح)</span>
-                <span><i class="far fa-user"></i> بواسطة: إدارة متكاملون</span>
-            </div>
-            
-            <!-- 2. ضع رابط الصورة المباشر هنا -->
-            <div class="post-featured-image">
-                <img src="ضع_رابط_الصورة_المباشر_هنا" alt="صورة الإعلان">
-            </div>
-            
-            <!-- 3. اكتب تفاصيل وشروط الإعلان هنا -->
-            <div class="post-body-text">
-                <p>اكتب هنا مقدمة عن الإعلان أو المساعدة لشو تابعة والجهة المانحة لها...</p>
-                <p><strong>الشروط المطلوبة:</strong></p>
-                <ul>
-                    <li>الشرط الأول المكتوب في الإعلان.</li>
-                    <li>الشرط الثاني.</li>
-                </ul>
-            </div>
-            
-            <!-- 4. ضع رابط التسجيل الحقيقي الخارجي هنا -->
-            <div class="action-button-container">
-                <a href="https://رابط-التسجيل-الخارجي-الحقيقي.com" class="apply-now-btn" target="_blank">
-                    <i class="fas fa-paper-plane"></i> اضغط هنا لتعبئة طلب التقديم والتسجيل
-                </a>
-            </div>
-            
-            <div class="footer-nav">
-                <a href="index.html" class="back-home-link"><i class="fas fa-arrow-right"></i> العودة للصفحة الرئيسية</a>
-            </div>
-        </article>
+        <h1 class="mb-4 fw-bold text-center" style="color: var(--primary-dark); font-size: 28px;">أحدث الوظائف والمساعدات الحالية</h1>
+        
+        <!-- هنا شبكة عرض الإعلانات (مثل المتقدمون تماماً) -->
+        <div id="jobs-grid-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
+            <!-- سيتم تعبئة الكروت هنا تلقائياً بواسطة الجافا سكريبت -->
+        </div>
+
+        <div class="text-right">
+            <a href="index.html" class="back-home-link"><i class="fas fa-arrow-right"></i> العودة للصفحة الرئيسية</a>
+        </div>
     </div>
+
+    <!-- سكريبت جلب وعرض البيانات الذكي بدون لخمة -->
+    <script>
+        fetch('jobs.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('jobs-grid-container');
+                container.innerHTML = ''; // تفريغ المحتوى الثابت
+
+                if (data.length === 0) {
+                    container.innerHTML = '<div class="col-12 text-center text-muted my-5">لا توجد إعلانات منشورة حالياً.</div>';
+                    return;
+                }
+
+                // عرض الإعلانات بالتتالي خلف بعضها البعض بناءً على ملف الـ JSON
+                data.forEach(job => {
+                    const cardHtml = `
+                        <div class="col">
+                            <article class="custom-job-card h-100 d-flex flex-column p-0">
+                                
+                                <!-- صورة الإعلان المأخوذة من رابط الـ json -->
+                                <div class="card-img-container">
+                                    <img src="${job.image || 'logo.png'}" alt="صورة الإعلان">
+                                </div>
+                                
+                                <div class="p-4 d-flex flex-column flex-grow-1">
+                                    <!-- عنوان الإعلان -->
+                                    <h2 style="color: var(--primary-dark); font-size: 20px; font-weight: 700; margin-bottom: 10px; line-height: 1.4;">${job.title}</h2>
+                                    
+                                    <!-- شريط البيانات الصغير لكل كرت -->
+                                    <div style="font-size: 13px; color: var(--muted-text); display: flex; gap: 15px; margin-bottom: 15px;">
+                                        <span><i class="far fa-building" style="color: var(--primary-blue); margin-left: 5px;"></i>المؤسسة: ${job.company}</span>
+                                        <span><i class="far fa-calendar-alt" style="color: var(--primary-blue); margin-left: 5px;"></i>${job.date}</span>
+                                    </div>
+                                    
+                                    <!-- تفاصيل الإعلان المختصرة -->
+                                    <div style="font-size: 15px; color: #2d3748; margin-bottom: 25px; text-align: justify; flex-grow: 1;">
+                                        <p>${job.details}</p>
+                                    </div>
+                                    
+                                    <!-- زر التقديم المخفي خلفه الرابط الحقيقي المباشر -->
+                                    <div class="action-button-container mt-auto">
+                                        <a href="${job.link}" class="apply-now-btn" target="_blank">
+                                            <i class="fas fa-paper-plane" style="margin-left: 5px;"></i> اضغط هنا لتعبئة طلب التقديم والتسجيل
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </article>
+                        </div>
+                    `;
+                    container.innerHTML += cardHtml;
+                });
+            })
+            .catch(error => console.error('خطأ في الاتصال بملف البيانات:', error));
+    </script>
 </body>
 </html>
