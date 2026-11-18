@@ -43,8 +43,31 @@
 
         /* تصميم البطاقات الاحترافي الجانبي التلقائي */
         .post-card-horizontal { display: flex; background: #ffffff; border: 1px solid #e5e9f0; border-radius: 6px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-        .post-card-thumb { width: 220px; min-width: 220px; height: 160px; background: #f9fafb; }
-        .post-card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .post-card-thumb {
+    width: 220px;
+    min-width: 220px;
+    height: 170px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    border-left: 1px solid #e5e9f0;
+}
+.post-card-thumb a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.post-card-thumb img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
         .post-card-content { padding: 15px 20px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
         .post-card-badge { align-self: flex-start; background: var(--primary-blue); color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
         .post-card-content h3 { font-size: 18px; margin: 8px 0 4px; color: var(--primary-dark); }
