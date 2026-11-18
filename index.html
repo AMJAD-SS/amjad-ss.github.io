@@ -137,19 +137,20 @@
                         const latestPosts = data.slice(0, 5);
 
                         latestPosts.forEach(job => {
-                            const postHtml = `
-                                <article class="post-card-horizontal">
-                                    <div class="post-card-thumb">
-                                        <a href="job-un.html"><img src="${job.image || 'logo.png'}" alt="${job.title}"></a>
-                                    </div>
-                                    <div class="post-card-content">
-                                        <span class="post-card-badge">${job.company}</span>
-                                        <h3><a href="job-un.html">${job.title}</a></h3>
-                                        <div class="post-card-meta">📅 ${job.date}</div>
-                                        <p class="post-card-excerpt">${job.details}</p>
-                                        <a href="job-un.html" class="read-more-btn">اقرأ المزيد</a>
-                                    </article>
-                            `;
+                           const postHtml = `
+    <article class="post-card-horizontal">
+        <div class="post-card-thumb">
+            <a href="job-un.html"><img src="${job.image || 'logo.png'}" alt="${job.title}"></a>
+        </div>
+        <div class="post-card-content">
+            <span class="post-card-badge">${job.company}</span>
+            <h3><a href="job-un.html">${job.title}</a></h3>
+            <div class="post-card-meta">📅 ${job.date}</div>
+            <p class="post-card-excerpt">${job.details}</p>
+            <a href="job-un.html" class="read-more-btn">اقرأ المزيد</a>
+        </div>
+    </article>
+`;
                             postsContainer.innerHTML += postHtml;
                         });
                     })
