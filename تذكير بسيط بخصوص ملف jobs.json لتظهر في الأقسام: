@@ -1,0 +1,14 @@
+تذكير بسيط بخصوص ملف jobs.json لتظهر في الأقسام:
+عندما تضيف أي إعلان جديد في jobs.json، ضع معه خانة "category" لتحديد قسمه هكذا:
+
+"category": "aid" (للمساعدات)
+
+"category": "jobs" (للوظائف)
+
+"category": "grads" (للخريجين)
+
+"category": "economy" (الاقتصاد)
+
+"category": "education" (التعليم)
+
+"category": "health" (الصحة)
