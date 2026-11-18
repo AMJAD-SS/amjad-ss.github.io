@@ -10,12 +10,28 @@
         :root { --primary-blue: #1565ff; --primary-dark: #0d1117; --light-bg: #f4f6fa; --white: #ffffff; --text-color: #1a1a1a; --muted-text: #6b7280; --border-color: #e5e9f0; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { background-color: var(--light-bg); color: var(--text-color); line-height: 1.8; }
-        .main-wrapper { max-width: 1100px; margin: 40px auto; padding: 0 15px; }
+        
+        /* الشريط العلوي */
+        .top-bar { background-color: var(--primary-dark); color: #cfd8e3; font-size: 13px; padding: 8px 0; }
+        .top-bar-inner { max-width: 1200px; margin: auto; padding: 0 15px; display: flex; justify-content: space-between; align-items: center; }
+        .top-links a { margin-inline-end: 15px; color: inherit; text-decoration: none; }
+        .top-social a { margin-inline-start: 12px; color: inherit; text-decoration: none; }
+
+        /* الهيدر والشعار */
+        .site-header { background-color: var(--white); padding: 20px 0; text-align: center; border-bottom: 3px solid var(--primary-blue); }
+        .logo-box img { max-height: 100px; width: auto; }
+
+        /* القائمة الرئيسية */
+        .main-nav { background-color: var(--primary-dark); position: sticky; top: 0; z-index: 1000; }
+        .nav-inner { max-width: 1200px; margin: auto; display: flex; overflow-x: auto; }
+        .nav-inner a { color: #e5e7eb; padding: 14px 20px; font-size: 15px; font-weight: 600; white-space: nowrap; text-decoration: none; }
+        .nav-inner a:hover, .nav-inner a.active { background-color: var(--primary-blue); }
+
+        .main-wrapper { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
         
         .custom-job-card { background: var(--white); border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
         .custom-job-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
         
-        /* تنسيق الصور بأبعاد ثابتة ومتناسقة دون قص أو تمدد */
         .card-img-container {
             width: 100%;
             height: 200px;
@@ -42,8 +58,42 @@
     </style>
 </head>
 <body>
+
+    <div class="top-bar">
+        <div class="top-bar-inner">
+            <div class="top-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="about.html">من نحن</a>
+                <a href="privacy.html">سياسة الخصوصية</a>
+                <a href="terms.html">شروط الاستخدام</a>
+            </div>
+            <div class="top-social">
+                <a href="https://www.facebook.com/profile.php?id=61596492620723" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://t.me/motakamelon" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="logo-box">
+            <a href="index.html"><img src="logo.png" alt="لوجو متكاملون"></a>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="nav-inner">
+            <a href="index.html">الرئيسية</a>
+            <a href="job-un.html?cat=aid">المساعدات</a>
+            <a href="job-un.html?cat=jobs">الوظائف</a>
+            <a href="job-un.html?cat=grads">الخريجين</a>
+            <a href="job-un.html?cat=economy">الاقتصاد</a>
+            <a href="job-un.html?cat=education">التعليم</a>
+            <a href="job-un.html?cat=health">الصحة</a>
+        </div>
+    </nav>
+
     <div class="main-wrapper">
-        <h1 class="mb-4 fw-bold text-center" style="color: var(--primary-dark); font-size: 28px;">أحدث الوظائف والمساعدات الحالية</h1>
+        <h1 id="page-title" class="mb-4 fw-bold text-center" style="color: var(--primary-dark); font-size: 26px;">أحدث الوظائف والمساعدات الحالية</h1>
         
         <div id="jobs-grid-container" class="row row-cols-1 row-cols-md-2 g-4">
         </div>
@@ -54,18 +104,41 @@
     </div>
 
     <script>
+        // قراءة القسم المطلوب من رابط الصفحة (مثلاً ?cat=aid)
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentCat = urlParams.get('cat');
+
+        const categoryNames = {
+            'aid': 'قسم المساعدات الإنسانية',
+            'jobs': 'قسم الوظائف الشاغرة',
+            'grads': 'قسم الخريجين',
+            'economy': 'قسم الاقتصاد',
+            'education': 'قسم التعليم',
+            'health': 'قسم الصحة'
+        };
+
+        if (currentCat && categoryNames[currentCat]) {
+            document.getElementById('page-title').innerText = categoryNames[currentCat];
+        }
+
         fetch('jobs.json')
             .then(response => response.json())
             .then(data => {
                 const container = document.getElementById('jobs-grid-container');
                 container.innerHTML = '';
 
-                if (data.length === 0) {
-                    container.innerHTML = '<div class="col-12 text-center text-muted my-5">لا توجد إعلانات منشورة حالياً.</div>';
+                // تصفية الإعلانات بناءً على القسم المختار إذا وجد
+                let filteredData = data;
+                if (currentCat) {
+                    filteredData = data.filter(job => job.category === currentCat);
+                }
+
+                if (filteredData.length === 0) {
+                    container.innerHTML = '<div class="col-12 text-center text-muted my-5">لا توجد إعلانات منشورة في هذا القسم حالياً.</div>';
                     return;
                 }
 
-                data.forEach(job => {
+                filteredData.forEach(job => {
                     const cardHtml = `
                         <div class="col">
                             <article class="custom-job-card h-100 d-flex flex-column p-0">
