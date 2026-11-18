@@ -4,88 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الوظائف والمساعدات - منصة متكاملون</title>
-    <!-- استدعاء مكتبة لتنسيق كروت متجاوبة -->
-    <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- مكتبة الأيقونات لتظهر علامات التقويم والمؤسسة بشكل جميل -->
-    <link rel="stylesheet" href="https://cloudflare.com">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root { --primary-blue: #1565ff; --primary-dark: #0d1117; --light-bg: #f4f6fa; --white: #ffffff; --text-color: #1a1a1a; --muted-text: #6b7280; --border-color: #e5e9f0; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
         body { background-color: var(--light-bg); color: var(--text-color); line-height: 1.8; }
         .main-wrapper { max-width: 1100px; margin: 40px auto; padding: 0 15px; }
         
-        /* تصميم الكرت الشبكي المشابه للمتقدمون بألوان متكاملون */
         .custom-job-card { background: var(--white); border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
         .custom-job-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
-        .card-img-container { width: 100%; height: 210px; background-color: #f9fafb; border-bottom: 1px solid var(--border-color); overflow: hidden; }
-        .card-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* تنسيق الصور بأبعاد ثابتة ومتناسقة دون قص أو تمدد */
+        .card-img-container {
+            width: 100%;
+            height: 200px;
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .card-img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
         
         .apply-now-btn { display: block; text-align: center; background: var(--primary-blue); color: var(--white); padding: 12px; border-radius: 6px; font-size: 16px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 14px rgba(21, 101, 255, 0.2); transition: background 0.2s; }
         .apply-now-btn:hover { background: #0a3fa8; color: var(--white); }
         .back-home-link { display: inline-block; color: var(--primary-dark); text-decoration: none; font-weight: bold; font-size: 14px; margin-top: 30px; }
+        .back-home-link:hover { color: var(--primary-blue); }
     </style>
 </head>
 <body>
     <div class="main-wrapper">
         <h1 class="mb-4 fw-bold text-center" style="color: var(--primary-dark); font-size: 28px;">أحدث الوظائف والمساعدات الحالية</h1>
         
-        <!-- هنا شبكة عرض الإعلانات (مثل المتقدمون تماماً) -->
-        <div id="jobs-grid-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4">
-            <!-- سيتم تعبئة الكروت هنا تلقائياً بواسطة الجافا سكريبت -->
+        <div id="jobs-grid-container" class="row row-cols-1 row-cols-md-2 g-4">
         </div>
 
-        <div class="text-right">
-            <a href="index.html" class="back-home-link"><i class="fas fa-arrow-right"></i> العودة للصفحة الرئيسية</a>
+        <div class="text-end">
+            <a href="index.html" class="back-home-link"><i class="fas fa-arrow-right ms-1"></i> العودة للصفحة الرئيسية</a>
         </div>
     </div>
 
-    <!-- سكريبت جلب وعرض البيانات الذكي بدون لخمة -->
     <script>
         fetch('jobs.json')
             .then(response => response.json())
             .then(data => {
                 const container = document.getElementById('jobs-grid-container');
-                container.innerHTML = ''; // تفريغ المحتوى الثابت
+                container.innerHTML = '';
 
                 if (data.length === 0) {
                     container.innerHTML = '<div class="col-12 text-center text-muted my-5">لا توجد إعلانات منشورة حالياً.</div>';
                     return;
                 }
 
-                // عرض الإعلانات بالتتالي خلف بعضها البعض بناءً على ملف الـ JSON
                 data.forEach(job => {
                     const cardHtml = `
                         <div class="col">
                             <article class="custom-job-card h-100 d-flex flex-column p-0">
-                                
-                                <!-- صورة الإعلان المأخوذة من رابط الـ json -->
                                 <div class="card-img-container">
-                                    <img src="${job.image || 'logo.png'}" alt="صورة الإعلان">
+                                    <img src="${job.image || 'logo.png'}" alt="${job.title}">
                                 </div>
                                 
                                 <div class="p-4 d-flex flex-column flex-grow-1">
-                                    <!-- عنوان الإعلان -->
                                     <h2 style="color: var(--primary-dark); font-size: 20px; font-weight: 700; margin-bottom: 10px; line-height: 1.4;">${job.title}</h2>
                                     
-                                    <!-- شريط البيانات الصغير لكل كرت -->
-                                    <div style="font-size: 13px; color: var(--muted-text); display: flex; gap: 15px; margin-bottom: 15px;">
+                                    <div style="font-size: 13px; color: var(--muted-text); display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 15px;">
                                         <span><i class="far fa-building" style="color: var(--primary-blue); margin-left: 5px;"></i>المؤسسة: ${job.company}</span>
                                         <span><i class="far fa-calendar-alt" style="color: var(--primary-blue); margin-left: 5px;"></i>${job.date}</span>
                                     </div>
                                     
-                                    <!-- تفاصيل الإعلان المختصرة -->
                                     <div style="font-size: 15px; color: #2d3748; margin-bottom: 25px; text-align: justify; flex-grow: 1;">
                                         <p>${job.details}</p>
                                     </div>
                                     
-                                    <!-- زر التقديم المخفي خلفه الرابط الحقيقي المباشر -->
                                     <div class="action-button-container mt-auto">
                                         <a href="${job.link}" class="apply-now-btn" target="_blank">
                                             <i class="fas fa-paper-plane" style="margin-left: 5px;"></i> اضغط هنا لتعبئة طلب التقديم والتسجيل
                                         </a>
                                     </div>
                                 </div>
-
                             </article>
                         </div>
                     `;
